@@ -1,16 +1,25 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
 from .database import Base, SessionLocal, engine
 
 
-Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(
     title="Registro de Despesas API",
     version="1.0.0"
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -44,3 +53,21 @@ def listar_despesas(
     db: Session = Depends(get_db)
 ):
     return crud.listar_despesas(db)
+
+@app.delete("/despesas/{despesa_id}")
+def remover_despesa(
+    despesa_id: int,
+    db: Session = Depends(get_db)
+):
+    despesa = crud.remover_despesa(db, despesa_id)
+
+    if despesa is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Despesa não encontrada"
+        )
+
+    return {
+        "message": "Despesa removida com sucesso",
+        "id": despesa_id
+    }
