@@ -3,3 +3,6 @@ backend/.venv/
 __pycache__/
 *.pyc
 .venv/
+
+app.js.backup
+app.js.localstorage

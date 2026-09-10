@@ -9,11 +9,41 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
-    ports:
-      - "${POSTGRES_PORT}:5432"
-
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: registro-despesas-backend
+
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PORT: 5432
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - postgres
+
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+    container_name: registro-despesas-frontend
+
+    ports:
+      - "8080:80"
+
+    depends_on:
+      - backend
 
     restart: unless-stopped
 

@@ -253,3 +253,23 @@ function carregaListaDespesas(despesas = Array(), filtro = false) {
 	this.carregaListaDespesas(despesas, true)
 
  }
+
+async function criarDespesaAPI(despesa) {
+    const response = await fetch(
+        'http://localhost:8000/despesas',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(despesa)
+        }
+    )
+
+    if (!response.ok) {
+        const erro = await response.text()
+        throw new Error(erro)
+    }
+
+    return await response.json()
+}
