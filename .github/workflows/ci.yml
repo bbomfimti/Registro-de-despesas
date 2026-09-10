@@ -33,3 +33,15 @@ jobs:
       - name: Run tests
         run: |
           PYTHONPATH=backend pytest backend/tests -v
+
+      - name: Build backend image
+        run: |
+          docker build \
+            -t registro-despesas-backend:${{ github.sha }} \
+            ./backend
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            -t registro-despesas-frontend:${{ github.sha }} \
+            .
