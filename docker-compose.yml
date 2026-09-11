@@ -17,6 +17,7 @@ services:
   backend:
     build:
       context: ./backend
+    image: registro-despesas-backend:local
     container_name: registro-despesas-backend
 
     environment:
@@ -37,6 +38,7 @@ services:
   frontend:
     build:
       context: .
+    image: registro-despesas-frontend:local
     container_name: registro-despesas-frontend
 
     ports:

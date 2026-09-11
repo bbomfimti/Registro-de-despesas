@@ -3,16 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
-from .database import Base, SessionLocal, engine
-
-
-
+from .database import SessionLocal
 
 app = FastAPI(
     title="Registro de Despesas API",
     version="1.0.0"
 )
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,7 +21,6 @@ app.add_middleware(
 
 def get_db():
     db = SessionLocal()
-
     try:
         yield db
     finally:
@@ -40,7 +35,7 @@ def health_check():
     }
 
 
-@app.post("/despesas", response_model=schemas.DespesaResponse)
+@app.post("/api/despesas", response_model=schemas.DespesaResponse)
 def criar_despesa(
     despesa: schemas.DespesaCreate,
     db: Session = Depends(get_db)
@@ -48,13 +43,14 @@ def criar_despesa(
     return crud.criar_despesa(db, despesa)
 
 
-@app.get("/despesas", response_model=list[schemas.DespesaResponse])
+@app.get("/api/despesas", response_model=list[schemas.DespesaResponse])
 def listar_despesas(
     db: Session = Depends(get_db)
 ):
     return crud.listar_despesas(db)
 
-@app.delete("/despesas/{despesa_id}")
+
+@app.delete("/api/despesas/{despesa_id}")
 def remover_despesa(
     despesa_id: int,
     db: Session = Depends(get_db)
