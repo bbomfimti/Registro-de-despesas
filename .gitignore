@@ -1,8 +1,19 @@
 .env
+.venv/
 backend/.venv/
+
 __pycache__/
 *.pyc
-.venv/
+.pytest_cache/
 
+# Arquivos de backup
 app.js.backup
 app.js.localstorage
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/crash.log
+terraform/crash.*.log
+terraform/*.tfplan
