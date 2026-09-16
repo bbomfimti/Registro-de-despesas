@@ -17,3 +17,5 @@ terraform/*.tfstate.*
 terraform/crash.log
 terraform/crash.*.log
 terraform/*.tfplan
+terraform/tfplan
+terraform/tfplan.txt
