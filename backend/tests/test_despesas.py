@@ -1,6 +1,6 @@
 def test_criar_despesa(client):
     response = client.post(
-        "/despesas",
+        "/api/despesas",
         json={
             "ano": 2026,
             "mes": 9,
@@ -26,7 +26,7 @@ def test_criar_despesa(client):
 
 def test_listar_despesas(client):
     client.post(
-        "/despesas",
+        "/api/despesas",
         json={
             "ano": 2026,
             "mes": 9,
@@ -37,7 +37,7 @@ def test_listar_despesas(client):
         }
     )
 
-    response = client.get("/despesas")
+    response = client.get("/api/despesas")
 
     assert response.status_code == 200
 
@@ -49,7 +49,7 @@ def test_listar_despesas(client):
 
 def test_remover_despesa(client):
     create_response = client.post(
-        "/despesas",
+        "/api/despesas",
         json={
             "ano": 2026,
             "mes": 9,
@@ -60,9 +60,11 @@ def test_remover_despesa(client):
         }
     )
 
+    assert create_response.status_code == 200
+
     despesa_id = create_response.json()["id"]
 
-    response = client.delete(f"/despesas/{despesa_id}")
+    response = client.delete(f"/api/despesas/{despesa_id}")
 
     assert response.status_code == 200
 
