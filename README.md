@@ -1286,7 +1286,8 @@ Automação
 
 GitHub:
 
-https://github.com/bbomfimti/Registro-de-despesas.git
+git clone -b feat/devops-migration https://github.com/bbomfimti/Registro-de-despesas.git
+
 📌 Status do projeto
 
 🚧 Em evolução
