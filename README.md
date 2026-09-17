@@ -1286,8 +1286,7 @@ Automação
 
 GitHub:
 
-https://github.com/bbomfimti/Registro-de-despesas
-
+https://github.com/bbomfimti/Registro-de-despesas.git
 📌 Status do projeto
 
 🚧 Em evolução
